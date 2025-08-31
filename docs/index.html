@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPSA - 커리어 & 네트워킹 플랫폼</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="./static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="./index.html">
+                <i class="fas fa-network-wired me-2"></i>CAPSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./jobs.html">채용정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./stakeholder-hub.html">전문가 연결</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./community.html">커뮤니티</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="alert('데모 사이트입니다. 실제 로그인은 로컬에서만 가능합니다.')">
+                            <i class="fas fa-user-shield me-1"></i>관리자
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="py-4">
+        
+    <div class="hero-section bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">
+                        커리어와 네트워킹의<br>
+                        <span class="text-warning">새로운 시작</span>
+                    </h1>
+                    <p class="lead mb-4">
+                        CAPSA에서 당신의 꿈을 현실로 만들어보세요.<br>
+                        전문가와의 연결, 최신 채용정보, 그리고 활발한 커뮤니티가 기다립니다.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="./jobs.html" class="btn btn-warning btn-lg">
+                            <i class="fas fa-briefcase me-2"></i>채용정보 보기
+                        </a>
+                        <a href="./stakeholder-hub.html" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-handshake me-2"></i>전문가 연결
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <i class="fas fa-rocket" style="font-size: 8rem; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <!-- 주요 기능 -->
+        <section class="mb-5">
+            <h2 class="text-center mb-5">
+                <i class="fas fa-star text-warning me-2"></i>주요 기능
+            </h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card text-center h-100 p-4 border rounded-3 shadow-sm">
+                        <div class="feature-icon text-primary mb-3">
+                            <i class="fas fa-briefcase" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4>채용정보</h4>
+                        <p>최신 채용공고와 맞춤형 일자리 추천을 받아보세요.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center h-100 p-4 border rounded-3 shadow-sm">
+                        <div class="feature-icon text-success mb-3">
+                            <i class="fas fa-handshake" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4>전문가 연결</h4>
+                        <p>업계 전문가와 직접 연결되어 조언과 멘토링을 받으세요.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center h-100 p-4 border rounded-3 shadow-sm">
+                        <div class="feature-icon text-info mb-3">
+                            <i class="fas fa-users" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4>커뮤니티</h4>
+                        <p>동료들과 정보를 공유하고 네트워킹을 확장하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 최신 채용정보 -->
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3><i class="fas fa-briefcase text-primary me-2"></i>최신 채용정보</h3>
+                <a href="./jobs.html" class="btn btn-outline-primary">전체보기</a>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="job-card border rounded-3 p-4 shadow-sm h-100">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="mb-0">시니어 백엔드 개발자</h5>
+                            <span class="badge bg-success">정규직</span>
+                        </div>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-building me-1"></i>테크스타트업 A
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-map-marker-alt me-1"></i>서울 강남구
+                        </p>
+                        <p class="mb-3">Python/Django 기반 백엔드 시스템 개발 및 운영을 담당합니다.</p>
+                        <small class="text-muted">2024-08-31</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="job-card border rounded-3 p-4 shadow-sm h-100">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="mb-0">프론트엔드 개발자</h5>
+                            <span class="badge bg-info">계약직</span>
+                        </div>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-building me-1"></i>디지털 에이전시 B
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-map-marker-alt me-1"></i>서울 마포구
+                        </p>
+                        <p class="mb-3">React 기반 웹 애플리케이션 개발 및 UI/UX 구현을 담당합니다.</p>
+                        <small class="text-muted">2024-08-30</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 커뮤니티 공지 -->
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3><i class="fas fa-bullhorn text-success me-2"></i>커뮤니티 소식</h3>
+                <a href="./community.html" class="btn btn-outline-success">전체보기</a>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="announcement-card border rounded-3 p-4 shadow-sm h-100">
+                        <h6 class="fw-bold mb-2">CAPSA 플랫폼 오픈 베타 시작!</h6>
+                        <p class="small mb-2">안녕하세요! CAPSA 플랫폼의 오픈 베타가 시작되었습니다...</p>
+                        <small class="text-muted">CAPSA 운영팀 • 2024-08-31</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement-card border rounded-3 p-4 shadow-sm h-100">
+                        <h6 class="fw-bold mb-2">첫 번째 네트워킹 이벤트 개최</h6>
+                        <p class="small mb-2">9월 15일 강남에서 첫 번째 오프라인 네트워킹 이벤트를...</p>
+                        <small class="text-muted">이벤트팀 • 2024-08-30</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement-card border rounded-3 p-4 shadow-sm h-100">
+                        <h6 class="fw-bold mb-2">전문가 멘토링 프로그램 런칭</h6>
+                        <p class="small mb-2">경력 개발을 위한 1:1 멘토링 프로그램이 시작됩니다...</p>
+                        <small class="text-muted">서비스팀 • 2024-08-29</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA 섹션 -->
+        <section class="text-center py-5 bg-light rounded-3">
+            <h3 class="mb-4">지금 바로 시작하세요!</h3>
+            <p class="lead mb-4">CAPSA와 함께 새로운 기회를 발견하고 전문가와 연결되세요.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="./stakeholder-hub.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket me-2"></i>전문가 연결 신청
+                </a>
+                <a href="./jobs.html" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-search me-2"></i>채용정보 탐색
+                </a>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-network-wired me-2"></i>CAPSA</h5>
+                    <p class="mb-0">커리어와 네트워킹의 새로운 시작</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 CAPSA. All rights reserved.</p>
+                    <small>GitHub Pages로 배포된 데모 사이트입니다.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/main.js"></script>
+</body>
+</html>

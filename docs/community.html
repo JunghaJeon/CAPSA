@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 - CAPSA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="./static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="./index.html">
+                <i class="fas fa-network-wired me-2"></i>CAPSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./jobs.html">채용정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./stakeholder-hub.html">전문가 연결</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./community.html">커뮤니티</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="alert('데모 사이트입니다. 실제 로그인은 로컬에서만 가능합니다.')">
+                            <i class="fas fa-user-shield me-1"></i>관리자
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="py-4">
+        
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">
+                    <i class="fas fa-users text-success me-2"></i>커뮤니티
+                </h1>
+                
+                <!-- 커뮤니티 가이드라인 -->
+                <div class="alert alert-primary mb-4">
+                    <h5><i class="fas fa-info-circle me-2"></i>커뮤니티 가이드라인</h5>
+                    <ul class="mb-0">
+                        <li>서로를 존중하며 건설적인 대화를 나누어주세요</li>
+                        <li>스팸이나 광고성 게시물은 금지됩니다</li>
+                        <li>개인정보 보호를 위해 민감한 정보 공유는 피해주세요</li>
+                        <li>질문이나 도움 요청은 언제든 환영합니다</li>
+                    </ul>
+                </div>
+
+                <!-- 공지사항 목록 -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3><i class="fas fa-bullhorn text-warning me-2"></i>공지사항 및 소식</h3>
+                    <span class="badge bg-secondary">3개의 게시물</span>
+                </div>
+
+                <div class="row g-4">
+                    
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">CAPSA 플랫폼 오픈 베타 시작!</h5>
+                                <small class="text-muted">2024-08-31</small>
+                            </div>
+                            <p class="mb-3">안녕하세요! CAPSA 플랫폼의 오픈 베타가 시작되었습니다. 많은 관심과 참여 부탁드립니다.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: CAPSA 운영팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">첫 번째 네트워킹 이벤트 개최</h5>
+                                <small class="text-muted">2024-08-30</small>
+                            </div>
+                            <p class="mb-3">9월 15일 강남에서 첫 번째 오프라인 네트워킹 이벤트를 개최합니다. 많은 참여 바랍니다!</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: 이벤트팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">전문가 멘토링 프로그램 런칭</h5>
+                                <small class="text-muted">2024-08-29</small>
+                            </div>
+                            <p class="mb-3">경력 개발을 위한 1:1 멘토링 프로그램이 시작됩니다. 신청은 전문가 연결 메뉴에서 가능합니다.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: 서비스팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- 이벤트 정보 -->
+                <div class="mt-5">
+                    <h4 class="mb-4"><i class="fas fa-calendar-alt text-info me-2"></i>예정된 이벤트</h4>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0"><i class="fas fa-calendar me-2"></i>2024년 9월 15일</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6>첫 번째 네트워킹 이벤트</h6>
+                                    <p class="small mb-2">장소: 서울 강남구 (상세 주소 추후 공지)</p>
+                                    <p class="small">다양한 분야의 전문가들과 만나 네트워킹하고 인사이트를 공유하는 시간입니다.</p>
+                                    <button class="btn btn-info btn-sm" onclick="alert('데모 사이트입니다.')">참가 신청</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h6 class="mb-0"><i class="fas fa-calendar me-2"></i>2024년 9월 22일</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6>온라인 세미나: 커리어 전환 전략</h6>
+                                    <p class="small mb-2">시간: 오후 7시 - 9시 (온라인)</p>
+                                    <p class="small">성공적인 커리어 전환을 위한 실전 전략과 노하우를 공유합니다.</p>
+                                    <button class="btn btn-warning btn-sm" onclick="alert('데모 사이트입니다.')">참가 신청</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterJobs() {
+            // 검색 기능 구현 (데모용)
+            alert('검색 기능은 로컬 환경에서 이용 가능합니다.');
+        }
+    </script>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-network-wired me-2"></i>CAPSA</h5>
+                    <p class="mb-0">커리어와 네트워킹의 새로운 시작</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 CAPSA. All rights reserved.</p>
+                    <small>GitHub Pages로 배포된 데모 사이트입니다.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/main.js"></script>
+</body>
+</html>
