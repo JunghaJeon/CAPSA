@@ -1,0 +1,521 @@
+{% extends "base.html" %}
+
+{% block title %}관리자 대시보드 - CAPSA{% endblock %}
+
+{% block content %}
+<!-- 관리자 헤더 -->
+<section class="admin-header bg-dark text-white py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="h3 mb-0">
+                    <i class="fas fa-tachometer-alt me-2"></i>관리자 대시보드
+                </h1>
+                <p class="mb-0 text-muted">CAPSA 시스템 관리</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span class="badge bg-success me-3">
+                    <i class="fas fa-circle me-1"></i>온라인
+                </span>
+                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-sign-out-alt me-1"></i>로그아웃
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 통계 카드 -->
+<section class="admin-stats py-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stat-icon mb-3">
+                            <i class="fas fa-briefcase fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="fw-bold text-primary">{{ jobs|length }}</h3>
+                        <p class="text-muted mb-0">채용공고</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stat-icon mb-3">
+                            <i class="fas fa-bullhorn fa-2x text-info"></i>
+                        </div>
+                        <h3 class="fw-bold text-info">{{ announcements|length }}</h3>
+                        <p class="text-muted mb-0">공지사항</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stat-icon mb-3">
+                            <i class="fas fa-users fa-2x text-success"></i>
+                        </div>
+                        <h3 class="fw-bold text-success">{{ requests|length }}</h3>
+                        <p class="text-muted mb-0">전문가 요청</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 관리 탭 -->
+<section class="admin-content py-4">
+    <div class="container">
+        <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs-pane" type="button">
+                    <i class="fas fa-briefcase me-2"></i>채용공고 관리
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="announcements-tab" data-bs-toggle="tab" data-bs-target="#announcements-pane" type="button">
+                    <i class="fas fa-bullhorn me-2"></i>공지사항 관리
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests-pane" type="button">
+                    <i class="fas fa-users me-2"></i>전문가 요청 관리
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabsContent">
+            <!-- 채용공고 관리 탭 -->
+            <div class="tab-pane fade show active" id="jobs-pane" role="tabpanel">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">채용공고 관리</h5>
+                        <a href="{{ url_for('add_job') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>새 채용공고 추가
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% if jobs %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>제목</th>
+                                        <th>회사</th>
+                                        <th>위치</th>
+                                        <th>등록일</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for job in jobs %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ job.title }}</strong>
+                                            <br><small class="text-muted">{{ job.description[:50] }}...</small>
+                                        </td>
+                                        <td>{{ job.company }}</td>
+                                        <td>
+                                            {% if job.location == 'Remote' %}
+                                            <span class="badge bg-success">{{ job.location }}</span>
+                                            {% else %}
+                                            {{ job.location }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ job.posted_at.strftime('%Y-%m-%d') }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-primary" onclick="editJob({{ job.id }})">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" onclick="deleteJob({{ job.id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <a href="{{ job.apply_url }}" target="_blank" class="btn btn-outline-success">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">등록된 채용공고가 없습니다</h5>
+                            <a href="{{ url_for('add_job') }}" class="btn btn-primary mt-3">
+                                <i class="fas fa-plus me-2"></i>첫 번째 채용공고 추가하기
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 공지사항 관리 탭 -->
+            <div class="tab-pane fade" id="announcements-pane" role="tabpanel">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">공지사항 관리</h5>
+                        <a href="{{ url_for('add_announcement') }}" class="btn btn-info">
+                            <i class="fas fa-plus me-2"></i>새 공지사항 작성
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% if announcements %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>제목</th>
+                                        <th>상태</th>
+                                        <th>등록일</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for announcement in announcements %}
+                                    <tr>
+                                        <td>
+                                            {% if announcement.pinned %}
+                                            <i class="fas fa-thumbtack text-warning me-2"></i>
+                                            {% endif %}
+                                            <strong>{{ announcement.title }}</strong>
+                                            <br><small class="text-muted">{{ announcement.content[:50] }}...</small>
+                                        </td>
+                                        <td>
+                                            {% if announcement.pinned %}
+                                            <span class="badge bg-warning text-dark">고정됨</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">일반</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ announcement.posted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-primary" onclick="editAnnouncement({{ announcement.id }})">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-warning" onclick="togglePin({{ announcement.id }})">
+                                                    <i class="fas fa-thumbtack"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" onclick="deleteAnnouncement({{ announcement.id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-bullhorn fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">등록된 공지사항이 없습니다</h5>
+                            <a href="{{ url_for('add_announcement') }}" class="btn btn-info mt-3">
+                                <i class="fas fa-plus me-2"></i>첫 번째 공지사항 작성하기
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 전문가 요청 관리 탭 -->
+            <div class="tab-pane fade" id="requests-pane" role="tabpanel">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">전문가 연결 요청 관리</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if requests %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>이름</th>
+                                        <th>회사</th>
+                                        <th>도움 유형</th>
+                                        <th>상태</th>
+                                        <th>제출일</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for request in requests %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ request.name }}</strong>
+                                            <br><small class="text-muted">{{ request.email }}</small>
+                                        </td>
+                                        <td>
+                                            {{ request.company }}
+                                            <br><small class="text-muted">{{ request.role }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">{{ request.help_type }}</span>
+                                        </td>
+                                        <td>
+                                            {% if request.status == 'Pending' %}
+                                            <span class="badge bg-warning text-dark">대기중</span>
+                                            {% elif request.status == 'In Progress' %}
+                                            <span class="badge bg-primary">진행중</span>
+                                            {% elif request.status == 'Completed' %}
+                                            <span class="badge bg-success">완료</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">{{ request.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ request.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-info" 
+                                                        onclick="viewRequestDetails({{ request.id }})"
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#requestModal{{ request.id }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-primary dropdown-toggle" 
+                                                            type="button" 
+                                                            data-bs-toggle="dropdown">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <form method="POST" action="{{ url_for('update_request_status', request_id=request.id) }}" class="d-inline">
+                                                                <input type="hidden" name="status" value="In Progress">
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="fas fa-play me-2 text-primary"></i>진행중으로 변경
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <form method="POST" action="{{ url_for('update_request_status', request_id=request.id) }}" class="d-inline">
+                                                                <input type="hidden" name="status" value="Completed">
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="fas fa-check me-2 text-success"></i>완료로 변경
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <form method="POST" action="{{ url_for('update_request_status', request_id=request.id) }}" class="d-inline">
+                                                                <input type="hidden" name="status" value="Pending">
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="fas fa-clock me-2 text-warning"></i>대기중으로 변경
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- 요청 상세 모달 -->
+                                    <div class="modal fade" id="requestModal{{ request.id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        <i class="fas fa-user me-2"></i>{{ request.name }}님의 요청
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <strong>이름:</strong> {{ request.name }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>이메일:</strong> {{ request.email }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>회사:</strong> {{ request.company }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>직책:</strong> {{ request.role }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>도움 유형:</strong> 
+                                                            <span class="badge bg-info">{{ request.help_type }}</span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>상태:</strong> 
+                                                            {% if request.status == 'Pending' %}
+                                                            <span class="badge bg-warning text-dark">대기중</span>
+                                                            {% elif request.status == 'In Progress' %}
+                                                            <span class="badge bg-primary">진행중</span>
+                                                            {% elif request.status == 'Completed' %}
+                                                            <span class="badge bg-success">완료</span>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <strong>상세 설명:</strong>
+                                                            <div class="mt-2 p-3 bg-light rounded">
+                                                                {{ request.description }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <strong>제출일:</strong> {{ request.submitted_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                    <a href="mailto:{{ request.email }}?subject=CAPSA 전문가 연결 관련" class="btn btn-primary">
+                                                        <i class="fas fa-envelope me-2"></i>이메일 보내기
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">아직 전문가 연결 요청이 없습니다</h5>
+                            <p class="text-muted">사용자가 요청을 제출하면 여기에 표시됩니다.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 공지사항 관리 탭 -->
+            <div class="tab-pane fade" id="announcements-pane" role="tabpanel">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">공지사항 관리</h5>
+                        <a href="{{ url_for('add_announcement') }}" class="btn btn-info">
+                            <i class="fas fa-plus me-2"></i>새 공지사항 작성
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% if announcements %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>제목</th>
+                                        <th>상태</th>
+                                        <th>등록일</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for announcement in announcements %}
+                                    <tr>
+                                        <td>
+                                            {% if announcement.pinned %}
+                                            <i class="fas fa-thumbtack text-warning me-2"></i>
+                                            {% endif %}
+                                            <strong>{{ announcement.title }}</strong>
+                                            <br><small class="text-muted">{{ announcement.content[:50] }}...</small>
+                                        </td>
+                                        <td>
+                                            {% if announcement.pinned %}
+                                            <span class="badge bg-warning text-dark">고정됨</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">일반</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ announcement.posted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-primary" onclick="editAnnouncement({{ announcement.id }})">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-warning" onclick="togglePin({{ announcement.id }})">
+                                                    <i class="fas fa-thumbtack"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" onclick="deleteAnnouncement({{ announcement.id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-bullhorn fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">등록된 공지사항이 없습니다</h5>
+                            <a href="{{ url_for('add_announcement') }}" class="btn btn-info mt-3">
+                                <i class="fas fa-plus me-2"></i>첫 번째 공지사항 작성하기
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 채용공고 편집
+function editJob(jobId) {
+    alert('채용공고 편집 기능은 개발 중입니다.');
+}
+
+// 채용공고 삭제
+function deleteJob(jobId) {
+    if (confirm('정말로 이 채용공고를 삭제하시겠습니까?')) {
+        // 실제 구현에서는 AJAX로 삭제 요청
+        alert('삭제 기능은 개발 중입니다.');
+    }
+}
+
+// 공지사항 편집
+function editAnnouncement(announcementId) {
+    alert('공지사항 편집 기능은 개발 중입니다.');
+}
+
+// 공지사항 핀 토글
+function togglePin(announcementId) {
+    if (confirm('이 공지사항의 고정 상태를 변경하시겠습니까?')) {
+        alert('핀 토글 기능은 개발 중입니다.');
+    }
+}
+
+// 공지사항 삭제
+function deleteAnnouncement(announcementId) {
+    if (confirm('정말로 이 공지사항을 삭제하시겠습니까?')) {
+        alert('삭제 기능은 개발 중입니다.');
+    }
+}
+
+// 요청 상세 보기
+function viewRequestDetails(requestId) {
+    // 모달이 자동으로 열림
+}
+
+// 실시간 통계 업데이트
+function updateStats() {
+    // 실제 구현에서는 AJAX로 최신 통계 가져오기
+    console.log('통계 업데이트 중...');
+}
+
+// 페이지 로드 시 통계 업데이트
+document.addEventListener('DOMContentLoaded', function() {
+    updateStats();
+    
+    // 5분마다 통계 업데이트
+    setInterval(updateStats, 300000);
+});
+</script>
+{% endblock %}

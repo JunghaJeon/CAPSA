@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}채용정보 - CAPSA{% endblock %}
+
+{% block content %}
+<!-- 페이지 헤더 -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold mb-3">
+                    <i class="fas fa-briefcase me-3"></i>채용정보
+                </h1>
+                <p class="lead mb-0">최고의 기회를 발견하고 당신의 커리어를 성장시키세요</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 검색 및 필터 -->
+<section class="search-filter py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <form method="GET" action="{{ url_for('jobs') }}" class="search-form">
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control form-control-lg" 
+                               name="location" 
+                               placeholder="위치를 입력하세요 (예: Seoul, San Francisco, Remote)"
+                               value="{{ location }}">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="fas fa-search me-2"></i>검색
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 채용정보 목록 -->
+<section class="jobs-list py-5">
+    <div class="container">
+        {% if location %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-filter me-2"></i>
+                    <strong>{{ location }}</strong> 지역의 채용정보를 검색한 결과입니다.
+                    <a href="{{ url_for('jobs') }}" class="btn btn-sm btn-outline-info ms-3">
+                        <i class="fas fa-times me-1"></i>필터 해제
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if jobs %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="text-muted">
+                    <i class="fas fa-list me-2"></i>
+                    총 <span class="text-primary fw-bold">{{ jobs|length }}</span>개의 채용공고
+                </h4>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for job in jobs %}
+            <div class="col-lg-6 col-xl-4">
+                <div class="job-card card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title text-primary mb-0">{{ job.title }}</h5>
+                            {% if job.location == 'Remote' %}
+                            <span class="badge bg-success">
+                                <i class="fas fa-home me-1"></i>Remote
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <h6 class="card-subtitle mb-3 text-muted">
+                            <i class="fas fa-building me-2"></i>{{ job.company }}
+                        </h6>
+                        
+                        <p class="card-text mb-3">
+                            <i class="fas fa-map-marker-alt me-2 text-success"></i>
+                            <strong>{{ job.location }}</strong>
+                        </p>
+                        
+                        <p class="card-text text-muted mb-4">
+                            {{ job.description[:150] }}{% if job.description|length > 150 %}...{% endif %}
+                        </p>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                {{ job.posted_at.strftime('%Y-%m-%d') }}
+                            </small>
+                            <a href="{{ job.apply_url }}" 
+                               target="_blank" 
+                               class="btn btn-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>지원하기
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pt-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-eye me-1"></i>상세보기
+                            </small>
+                            <div class="job-actions">
+                                <button class="btn btn-outline-secondary btn-sm me-2" 
+                                        onclick="shareJob('{{ job.title }}', '{{ job.company }}')">
+                                    <i class="fas fa-share-alt me-1"></i>공유
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" 
+                                        onclick="saveJob({{ job.id }})">
+                                    <i class="fas fa-bookmark me-1"></i>저장
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center py-5">
+                <div class="no-jobs">
+                    <i class="fas fa-search fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted mb-3">
+                        {% if location %}
+                            "{{ location }}" 지역의 채용정보가 없습니다
+                        {% else %}
+                            아직 등록된 채용정보가 없습니다
+                        {% endif %}
+                    </h3>
+                    <p class="text-muted mb-4">
+                        {% if location %}
+                            다른 지역을 검색해보거나 필터를 해제해보세요.
+                        {% else %}
+                            관리자가 채용정보를 등록하면 여기에 표시됩니다.
+                        {% endif %}
+                    </p>
+                    {% if not location %}
+                    <a href="{{ url_for('admin_login') }}" class="btn btn-primary">
+                        <i class="fas fa-cog me-2"></i>관리자 로그인
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- 채용정보 등록 안내 -->
+{% if not session.admin %}
+<section class="job-posting-info py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <div class="info-card p-4">
+                    <i class="fas fa-plus-circle fa-3x text-primary mb-3"></i>
+                    <h4>채용정보를 등록하고 싶으신가요?</h4>
+                    <p class="text-muted mb-4">
+                        회사에서 채용공고를 등록하고 싶으시다면 관리자에게 문의하거나 
+                        관리자 계정으로 로그인하여 직접 등록할 수 있습니다.
+                    </p>
+                    <a href="{{ url_for('admin_login') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-sign-in-alt me-2"></i>관리자 로그인
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 채용정보 공유 기능
+function shareJob(title, company) {
+    const text = `${title} @ ${company} - CAPSA에서 확인하세요!`;
+    const url = window.location.href;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'CAPSA 채용정보',
+            text: text,
+            url: url
+        });
+    } else {
+        // 클립보드에 복사
+        navigator.clipboard.writeText(text + ' ' + url).then(() => {
+            alert('채용정보가 클립보드에 복사되었습니다!');
+        });
+    }
+}
+
+// 채용정보 저장 기능 (로컬 스토리지)
+function saveJob(jobId) {
+    let savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+    
+    if (savedJobs.includes(jobId)) {
+        savedJobs = savedJobs.filter(id => id !== jobId);
+        alert('저장된 채용정보에서 제거되었습니다.');
+    } else {
+        savedJobs.push(jobId);
+        alert('채용정보가 저장되었습니다!');
+    }
+    
+    localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+    
+    // 버튼 상태 업데이트
+    const button = event.target;
+    if (savedJobs.includes(jobId)) {
+        button.classList.remove('btn-outline-warning');
+        button.classList.add('btn-warning');
+        button.innerHTML = '<i class="fas fa-bookmark me-1"></i>저장됨';
+    } else {
+        button.classList.remove('btn-warning');
+        button.classList.add('btn-outline-warning');
+        button.innerHTML = '<i class="fas fa-bookmark me-1"></i>저장';
+    }
+}
+
+// 페이지 로드 시 저장된 채용정보 표시
+document.addEventListener('DOMContentLoaded', function() {
+    const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+    savedJobs.forEach(jobId => {
+        const button = document.querySelector(`button[onclick="saveJob(${jobId})"]`);
+        if (button) {
+            button.classList.remove('btn-outline-warning');
+            button.classList.add('btn-warning');
+            button.innerHTML = '<i class="fas fa-bookmark me-1"></i>저장됨';
+        }
+    });
+});
+</script>
+{% endblock %}

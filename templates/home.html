@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}CAPSA - 홈{% endblock %}
+
+{% block content %}
+<!-- 히어로 섹션 -->
+<section class="hero-section bg-gradient-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    커리어 성장과<br>
+                    <span class="text-warning">네트워킹</span>의 시작
+                </h1>
+                <p class="lead mb-4">
+                    CAPSA에서 최고의 기회를 발견하고, 전문가들과 연결하여 
+                    당신의 커리어를 한 단계 업그레이드하세요.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('jobs') }}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-search me-2"></i>채용정보 보기
+                    </a>
+                    <a href="{{ url_for('stakeholder_hub') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-handshake me-2"></i>전문가 연결
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image">
+                    <i class="fas fa-rocket fa-8x text-warning opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 주요 기능 섹션 -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="fw-bold">CAPSA의 핵심 기능</h2>
+                <p class="text-muted">커리어 성장을 위한 모든 것을 한 곳에서</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-briefcase fa-3x text-primary"></i>
+                    </div>
+                    <h4>채용정보</h4>
+                    <p class="text-muted">최신 채용공고를 확인하고 원하는 포지션에 지원하세요</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-users fa-3x text-success"></i>
+                    </div>
+                    <h4>전문가 연결</h4>
+                    <p class="text-muted">멘토, 엔젤, 전문가들과 연결하여 인사이트를 얻으세요</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-bullhorn fa-3x text-info"></i>
+                    </div>
+                    <h4>커뮤니티</h4>
+                    <p class="text-muted">업계 소식과 이벤트를 확인하고 네트워킹에 참여하세요</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 최신 채용정보 -->
+{% if jobs %}
+<section class="latest-jobs py-5 bg-light">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h2 class="fw-bold">최신 채용정보</h2>
+                <a href="{{ url_for('jobs') }}" class="btn btn-outline-primary">
+                    전체 보기 <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for job in jobs %}
+            <div class="col-md-6 col-lg-4">
+                <div class="job-card card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ job.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
+                        <p class="card-text">
+                            <i class="fas fa-map-marker-alt me-2 text-success"></i>{{ job.location }}
+                        </p>
+                        <p class="card-text text-muted">{{ job.description[:100] }}...</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>{{ job.posted_at.strftime('%Y-%m-%d') }}
+                            </small>
+                            <a href="{{ job.apply_url }}" target="_blank" class="btn btn-primary btn-sm">
+                                지원하기 <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 공지사항 -->
+{% if announcements %}
+<section class="announcements py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h2 class="fw-bold">공지사항</h2>
+                <a href="{{ url_for('community') }}" class="btn btn-outline-primary">
+                    전체 보기 <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            {% for announcement in announcements %}
+            <div class="col-12 mb-3">
+                <div class="announcement-card card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            {% if announcement.pinned %}
+                            <span class="badge bg-warning text-dark me-3">
+                                <i class="fas fa-thumbtack me-1"></i>고정
+                            </span>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-2">{{ announcement.title }}</h5>
+                                <p class="card-text text-muted">{{ announcement.content }}</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>{{ announcement.posted_at.strftime('%Y-%m-%d %H:%M') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA 섹션 -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">지금 바로 시작하세요</h2>
+        <p class="lead mb-4">
+            CAPSA와 함께 커리어의 새로운 가능성을 발견하고, 
+            전문가들과 연결하여 성장의 기회를 만들어가세요.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('jobs') }}" class="btn btn-warning btn-lg">
+                <i class="fas fa-search me-2"></i>채용정보 탐색
+            </a>
+            <a href="{{ url_for('stakeholder_hub') }}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-handshake me-2"></i>전문가 요청
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

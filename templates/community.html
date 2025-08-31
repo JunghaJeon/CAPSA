@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block title %}커뮤니티 - CAPSA{% endblock %}
+
+{% block content %}
+<!-- 페이지 헤더 -->
+<section class="page-header bg-info text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold mb-3">
+                    <i class="fas fa-bullhorn me-3"></i>커뮤니티
+                </h1>
+                <p class="lead mb-0">업계 소식, 이벤트, 공지사항을 확인하고 네트워킹에 참여하세요</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 공지사항 섹션 -->
+<section class="announcements-section py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h2 class="fw-bold">
+                    <i class="fas fa-bullhorn me-2 text-info"></i>공지사항
+                </h2>
+                {% if session.admin %}
+                <a href="{{ url_for('add_announcement') }}" class="btn btn-info">
+                    <i class="fas fa-plus me-2"></i>새 공지사항 작성
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if announcements %}
+        <div class="row">
+            {% for announcement in announcements %}
+            <div class="col-12 mb-4">
+                <div class="announcement-card card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            {% if announcement.pinned %}
+                            <div class="me-3">
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fas fa-thumbtack me-1"></i>고정
+                                </span>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h4 class="card-title mb-0">
+                                        {% if announcement.pinned %}
+                                        <i class="fas fa-star text-warning me-2"></i>
+                                        {% endif %}
+                                        {{ announcement.title }}
+                                    </h4>
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        {{ announcement.posted_at.strftime('%Y-%m-%d %H:%M') }}
+                                    </small>
+                                </div>
+                                
+                                <div class="announcement-content">
+                                    <p class="card-text">{{ announcement.content }}</p>
+                                </div>
+                                
+                                <div class="announcement-meta mt-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="announcement-tags">
+                                            {% if announcement.pinned %}
+                                            <span class="badge bg-warning text-dark me-2">
+                                                <i class="fas fa-thumbtack me-1"></i>중요
+                                            </span>
+                                            {% endif %}
+                                            <span class="badge bg-info text-white">
+                                                <i class="fas fa-info-circle me-1"></i>공지
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="announcement-actions">
+                                            <button class="btn btn-outline-secondary btn-sm me-2" 
+                                                    onclick="shareAnnouncement('{{ announcement.title }}')">
+                                                <i class="fas fa-share-alt me-1"></i>공유
+                                            </button>
+                                            <button class="btn btn-outline-primary btn-sm" 
+                                                    onclick="toggleAnnouncement({{ announcement.id }})">
+                                                <i class="fas fa-eye me-1"></i>상세보기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center py-5">
+                <div class="no-announcements">
+                    <i class="fas fa-bullhorn fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted mb-3">아직 등록된 공지사항이 없습니다</h3>
+                    <p class="text-muted mb-4">
+                        관리자가 공지사항을 등록하면 여기에 표시됩니다.
+                    </p>
+                    {% if not session.admin %}
+                    <a href="{{ url_for('admin_login') }}" class="btn btn-info">
+                        <i class="fas fa-cog me-2"></i>관리자 로그인
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- 커뮤니티 가이드라인 -->
+<section class="guidelines-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="guidelines-card card border-0 shadow">
+                    <div class="card-header bg-info text-white text-center py-4">
+                        <h4 class="mb-0">
+                            <i class="fas fa-book me-2"></i>커뮤니티 가이드라인
+                        </h4>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="guideline-item">
+                                    <h6 class="text-primary">
+                                        <i class="fas fa-check-circle me-2"></i>지켜야 할 것
+                                    </h6>
+                                    <ul class="list-unstyled text-muted">
+                                        <li><i class="fas fa-arrow-right me-2"></i>서로를 존중하고 예의 바르게 대화하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>건설적이고 도움이 되는 정보 공유하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>개인정보 보호하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>커뮤니티 규칙 준수하기</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="guideline-item">
+                                    <h6 class="text-danger">
+                                        <i class="fas fa-times-circle me-2"></i>하지 말아야 할 것
+                                    </h6>
+                                    <ul class="list-unstyled text-muted">
+                                        <li><i class="fas fa-arrow-right me-2"></i>욕설이나 비방 발언하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>스팸이나 광고성 내용 게시하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>타인의 저작권 침해하기</li>
+                                        <li><i class="fas fa-arrow-right me-2"></i>정치적 논쟁이나 분쟁 조장하기</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 이벤트 및 네트워킹 -->
+<section class="events-section py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h3 class="fw-bold">이벤트 & 네트워킹</h3>
+                <p class="text-muted">업계 이벤트와 네트워킹 기회를 놓치지 마세요</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="event-icon mb-3">
+                            <i class="fas fa-calendar-alt fa-3x text-primary"></i>
+                        </div>
+                        <h5>월간 네트워킹</h5>
+                        <p class="text-muted">매월 마지막 주 금요일, 온라인으로 진행되는 네트워킹 이벤트</p>
+                        <div class="event-status">
+                            <span class="badge bg-success">진행중</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="event-icon mb-3">
+                            <i class="fas fa-graduation-cap fa-3x text-success"></i>
+                        </div>
+                        <h5>커리어 워크샵</h5>
+                        <p class="text-muted">전문가들이 진행하는 실무 중심의 커리어 개발 워크샵</p>
+                        <div class="event-status">
+                            <span class="badge bg-warning text-dark">준비중</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="event-icon mb-3">
+                            <i class="fas fa-lightbulb fa-3x text-info"></i>
+                        </div>
+                        <h5>스타트업 데모데이</h5>
+                        <p class="text-muted">혁신적인 스타트업들의 아이디어를 확인할 수 있는 데모데이</p>
+                        <div class="event-status">
+                            <span class="badge bg-secondary">예정</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 커뮤니티 통계 -->
+<section class="stats-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-users fa-3x mb-3"></i>
+                    <h3 class="fw-bold">1,234</h3>
+                    <p class="mb-0">활성 회원</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-handshake fa-3x mb-3"></i>
+                    <h3 class="fw-bold">567</h3>
+                    <p class="mb-0">성공한 연결</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                    <h3 class="fw-bold">89</h3>
+                    <p class="mb-0">진행된 이벤트</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-star fa-3x mb-3"></i>
+                    <h3 class="fw-bold">4.8</h3>
+                    <p class="mb-0">평균 만족도</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 문의 및 제안 -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="contact-card p-4">
+                    <i class="fas fa-comments fa-3x text-primary mb-4"></i>
+                    <h4>커뮤니티에 대한 의견이 있으신가요?</h4>
+                    <p class="text-muted mb-4">
+                        개선사항이나 새로운 기능 제안, 문의사항이 있으시면 언제든 연락주세요.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="mailto:community@capsa.com" class="btn btn-outline-primary">
+                            <i class="fas fa-envelope me-2"></i>이메일 문의
+                        </a>
+                        <a href="{{ url_for('admin_login') }}" class="btn btn-primary">
+                            <i class="fas fa-cog me-2"></i>관리자 문의
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 공지사항 공유 기능
+function shareAnnouncement(title) {
+    const text = `${title} - CAPSA 커뮤니티에서 확인하세요!`;
+    const url = window.location.href;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'CAPSA 공지사항',
+            text: text,
+            url: url
+        });
+    } else {
+        // 클립보드에 복사
+        navigator.clipboard.writeText(text + ' ' + url).then(() => {
+            alert('공지사항이 클립보드에 복사되었습니다!');
+        });
+    }
+}
+
+// 공지사항 상세보기 토글
+function toggleAnnouncement(id) {
+    const announcement = document.querySelector(`[data-announcement-id="${id}"]`);
+    if (announcement) {
+        const content = announcement.querySelector('.announcement-content');
+        const button = announcement.querySelector(`button[onclick="toggleAnnouncement(${id})"]`);
+        
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            button.innerHTML = '<i class="fas fa-eye-slash me-1"></i>접기';
+        } else {
+            content.style.display = 'none';
+            button.innerHTML = '<i class="fas fa-eye me-1"></i>상세보기';
+        }
+    }
+}
+
+// 페이지 로드 시 애니메이션 효과
+document.addEventListener('DOMContentLoaded', function() {
+    // 스크롤 애니메이션
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, observerOptions);
+    
+    // 관찰할 요소들
+    document.querySelectorAll('.announcement-card, .event-card, .guideline-item, .stat-item').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}
