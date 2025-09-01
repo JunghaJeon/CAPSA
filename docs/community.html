@@ -35,8 +35,8 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('문의사항이 있으시면 hello@capsa.kr로 연락주세요.')">
-                            <i class="fas fa-envelope me-1"></i>문의
+                        <a class="nav-link" href="#" onclick="alert('데모 사이트입니다. 실제 로그인은 로컬에서만 가능합니다.')">
+                            <i class="fas fa-user-shield me-1"></i>관리자
                         </a>
                     </li>
                 </ul>
@@ -46,190 +46,155 @@
 
     <!-- 메인 콘텐츠 -->
     <main class="py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h1 class="mb-4 text-center">
-                        <i class="fas fa-users text-success me-2"></i>커뮤니티
-                    </h1>
+        
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">
+                    <i class="fas fa-users text-success me-2"></i>커뮤니티
+                </h1>
+                
+                <!-- 커뮤니티 가이드라인 -->
+                <div class="alert alert-primary mb-4">
+                    <h5><i class="fas fa-info-circle me-2"></i>커뮤니티 가이드라인</h5>
+                    <ul class="mb-0">
+                        <li>서로를 존중하며 건설적인 대화를 나누어주세요</li>
+                        <li>스팸이나 광고성 게시물은 금지됩니다</li>
+                        <li>개인정보 보호를 위해 민감한 정보 공유는 피해주세요</li>
+                        <li>질문이나 도움 요청은 언제든 환영합니다</li>
+                    </ul>
+                </div>
+
+                <!-- 공지사항 목록 -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3><i class="fas fa-bullhorn text-warning me-2"></i>공지사항 및 소식</h3>
+                    <span class="badge bg-secondary">3개의 게시물</span>
+                </div>
+
+                <div class="row g-4">
                     
-                    <div class="text-center mb-5">
-                        <p class="lead">스타트업 생태계 인재들의 소통과 네트워킹 공간</p>
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">CAPSA 플랫폼 오픈 베타 시작!</h5>
+                                <small class="text-muted">2024-08-31</small>
+                            </div>
+                            <p class="mb-3">안녕하세요! CAPSA 플랫폼의 오픈 베타가 시작되었습니다. 많은 관심과 참여 부탁드립니다.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: CAPSA 운영팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- 최신 게시물 -->
-                    <section class="mb-5">
-                        <h3 class="mb-4">
-                            <i class="fas fa-bullhorn text-primary me-2"></i>최신 소식
-                        </h3>
-                        <div class="row g-4">
-                            <div class="col-12">
-                                <div class="post-card border rounded-3 p-4 shadow-sm">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <div>
-                                            <h5 class="mb-1">
-                                                <i class="fas fa-star text-warning me-2"></i>CAPSA 플랫폼 정식 런칭!
-                                            </h5>
-                                            <small class="text-muted">
-                                                <i class="fas fa-user me-1"></i>CAPSA 팀
-                                                <span class="mx-2">•</span>
-                                                <i class="fas fa-calendar me-1"></i>2024-08-31
-                                            </small>
-                                        </div>
-                                        <span class="badge bg-success">공지</span>
-                                    </div>
-                                    <p class="mb-3">
-                                        스타트업 생태계 인재 연결 플랫폼 CAPSA가 정식으로 서비스를 시작합니다. 
-                                        VC, 스타트업, 전문가, 구직자 모두를 위한 신뢰할 수 있는 매칭 서비스를 제공합니다.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="badge bg-primary me-1">플랫폼</span>
-                                            <span class="badge bg-info me-1">런칭</span>
-                                        </div>
-                                        <small class="text-muted">
-                                            <i class="fas fa-eye me-1"></i>124회 조회
-                                        </small>
-                                    </div>
-                                </div>
+                    
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">첫 번째 네트워킹 이벤트 개최</h5>
+                                <small class="text-muted">2024-08-30</small>
                             </div>
-                            
-                            <div class="col-12">
-                                <div class="post-card border rounded-3 p-4 shadow-sm">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <div>
-                                            <h5 class="mb-1">
-                                                <i class="fas fa-globe text-info me-2"></i>글로벌 인재 채용 트렌드 분석
-                                            </h5>
-                                            <small class="text-muted">
-                                                <i class="fas fa-user me-1"></i>김전문가 (前 구글 코리아)
-                                                <span class="mx-2">•</span>
-                                                <i class="fas fa-calendar me-1"></i>2024-08-30
-                                            </small>
-                                        </div>
-                                        <span class="badge bg-info">인사이트</span>
-                                    </div>
-                                    <p class="mb-3">
-                                        2024년 스타트업들이 글로벌 인재를 채용할 때 고려해야 할 주요 포인트와 
-                                        미국 거주 한국인 인재들의 한국 기업 관심도가 높아지는 트렌드를 분석해봅니다.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="badge bg-warning me-1">글로벌채용</span>
-                                            <span class="badge bg-secondary me-1">트렌드</span>
-                                        </div>
-                                        <small class="text-muted">
-                                            <i class="fas fa-eye me-1"></i>89회 조회
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="post-card border rounded-3 p-4 shadow-sm">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <div>
-                                            <h5 class="mb-1">
-                                                <i class="fas fa-code text-success me-2"></i>스타트업 개발자 커리어 로드맵
-                                            </h5>
-                                            <small class="text-muted">
-                                                <i class="fas fa-user me-1"></i>이개발자 (現 유니콘 스타트업 CTO)
-                                                <span class="mx-2">•</span>
-                                                <i class="fas fa-calendar me-1"></i>2024-08-29
-                                            </small>
-                                        </div>
-                                        <span class="badge bg-primary">커리어</span>
-                                    </div>
-                                    <p class="mb-3">
-                                        주니어 개발자부터 CTO까지, 스타트업에서의 개발자 커리어 성장 경로와 
-                                        각 단계별 필요한 역량에 대해 실무 경험을 바탕으로 공유합니다.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="badge bg-success me-1">개발</span>
-                                            <span class="badge bg-info me-1">커리어</span>
-                                        </div>
-                                        <small class="text-muted">
-                                            <i class="fas fa-eye me-1"></i>156회 조회
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="post-card border rounded-3 p-4 shadow-sm">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <div>
-                                            <h5 class="mb-1">
-                                                <i class="fas fa-users text-warning me-2"></i>스타트업 네트워킹 이벤트 후기
-                                            </h5>
-                                            <small class="text-muted">
-                                                <i class="fas fa-user me-1"></i>박매니저 (스타트업 A 인사팀)
-                                                <span class="mx-2">•</span>
-                                                <i class="fas fa-calendar me-1"></i>2024-08-28
-                                            </small>
-                                        </div>
-                                        <span class="badge bg-secondary">후기</span>
-                                    </div>
-                                    <p class="mb-3">
-                                        지난주 진행된 스타트업 인재 네트워킹 이벤트 참가 후기와 
-                                        실제로 만난 전문가들과의 소중한 인사이트를 공유합니다.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="badge bg-warning me-1">네트워킹</span>
-                                            <span class="badge bg-light text-dark me-1">이벤트</span>
-                                        </div>
-                                        <small class="text-muted">
-                                            <i class="fas fa-eye me-1"></i>73회 조회
-                                        </small>
-                                    </div>
+                            <p class="mb-3">9월 15일 강남에서 첫 번째 오프라인 네트워킹 이벤트를 개최합니다. 많은 참여 바랍니다!</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: 이벤트팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </section>
-
-                    <!-- 참여 방법 -->
-                    <section class="mb-5">
-                        <div class="card bg-light border-0">
-                            <div class="card-body text-center py-5">
-                                <h4 class="mb-4">
-                                    <i class="fas fa-envelope text-primary me-2"></i>소통하기
-                                </h4>
-                                <p class="lead mb-4">
-                                    관심 있는 주제나 질문이 있으시면<br>
-                                    언제든 연락주세요
-                                </p>
-                                <div class="mb-4">
-                                    <h5 class="text-primary">📧 hello@capsa.kr</h5>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="announcement-card border rounded-3 p-4 shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">전문가 멘토링 프로그램 런칭</h5>
+                                <small class="text-muted">2024-08-29</small>
+                            </div>
+                            <p class="mb-3">경력 개발을 위한 1:1 멘토링 프로그램이 시작됩니다. 신청은 전문가 연결 메뉴에서 가능합니다.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>작성자: 서비스팀
+                                </small>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-thumbs-up me-1"></i>좋아요
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-comment me-1"></i>댓글
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="alert('데모 사이트입니다.')">
+                                        <i class="fas fa-share me-1"></i>공유
+                                    </button>
                                 </div>
-                                <p class="text-muted">
-                                    스타트업 생태계의 다양한 이야기를<br>
-                                    함께 나누고 싶습니다
-                                </p>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                    
+                </div>
 
-                    <!-- 관심 분야 -->
-                    <section class="mb-5">
-                        <h4 class="mb-4 text-center">
-                            <i class="fas fa-tags text-secondary me-2"></i>관심 분야별 토픽
-                        </h4>
-                        <div class="text-center">
-                            <span class="badge bg-primary me-2 mb-2 p-2">기술 개발</span>
-                            <span class="badge bg-success me-2 mb-2 p-2">제품 기획</span>
-                            <span class="badge bg-info me-2 mb-2 p-2">마케팅</span>
-                            <span class="badge bg-warning me-2 mb-2 p-2">투자 유치</span>
-                            <span class="badge bg-danger me-2 mb-2 p-2">조직 운영</span>
-                            <span class="badge bg-dark me-2 mb-2 p-2">법무/회계</span>
-                            <span class="badge bg-secondary me-2 mb-2 p-2">해외 진출</span>
-                            <span class="badge bg-light text-dark me-2 mb-2 p-2">기타</span>
+                <!-- 이벤트 정보 -->
+                <div class="mt-5">
+                    <h4 class="mb-4"><i class="fas fa-calendar-alt text-info me-2"></i>예정된 이벤트</h4>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0"><i class="fas fa-calendar me-2"></i>2024년 9월 15일</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6>첫 번째 네트워킹 이벤트</h6>
+                                    <p class="small mb-2">장소: 서울 강남구 (상세 주소 추후 공지)</p>
+                                    <p class="small">다양한 분야의 전문가들과 만나 네트워킹하고 인사이트를 공유하는 시간입니다.</p>
+                                    <button class="btn btn-info btn-sm" onclick="alert('데모 사이트입니다.')">참가 신청</button>
+                                </div>
+                            </div>
                         </div>
-                    </section>
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h6 class="mb-0"><i class="fas fa-calendar me-2"></i>2024년 9월 22일</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6>온라인 세미나: 커리어 전환 전략</h6>
+                                    <p class="small mb-2">시간: 오후 7시 - 9시 (온라인)</p>
+                                    <p class="small">성공적인 커리어 전환을 위한 실전 전략과 노하우를 공유합니다.</p>
+                                    <button class="btn btn-warning btn-sm" onclick="alert('데모 사이트입니다.')">참가 신청</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <script>
+        function filterJobs() {
+            // 검색 기능 구현 (데모용)
+            alert('검색 기능은 로컬 환경에서 이용 가능합니다.');
+        }
+    </script>
     </main>
 
     <!-- 푸터 -->
@@ -238,11 +203,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5><i class="fas fa-network-wired me-2"></i>CAPSA</h5>
-                    <p class="mb-0">스타트업 생태계 인재 연결 플랫폼</p>
+                    <p class="mb-0">커리어와 네트워킹의 새로운 시작</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0">&copy; 2024 CAPSA. All rights reserved.</p>
-                    <small>📧 hello@capsa.kr</small>
+                    <small>GitHub Pages로 배포된 데모 사이트입니다.</small>
                 </div>
             </div>
         </div>
