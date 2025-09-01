@@ -35,8 +35,8 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('데모 사이트입니다. 실제 로그인은 로컬에서만 가능합니다.')">
-                            <i class="fas fa-user-shield me-1"></i>관리자
+                        <a class="nav-link" href="#" onclick="alert('문의사항이 있으시면 hello@capsa.kr로 연락주세요.')">
+                            <i class="fas fa-envelope me-1"></i>문의
                         </a>
                     </li>
                 </ul>
@@ -46,102 +46,573 @@
 
     <!-- 메인 콘텐츠 -->
     <main class="py-4">
-        
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="mb-4 text-center">
-                    <i class="fas fa-handshake text-success me-2"></i>전문가 연결
-                </h1>
-                
-                <div class="alert alert-info mb-4">
-                    <h5><i class="fas fa-info-circle me-2"></i>전문가 연결 서비스란?</h5>
-                    <p class="mb-0">업계 전문가와 직접 연결되어 커리어 조언, 기술 멘토링, 비즈니스 인사이트를 얻을 수 있는 서비스입니다.</p>
-                </div>
-
-                <div class="card shadow">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>연결 요청서 작성</h5>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="mb-4 text-center">
+                        <i class="fas fa-handshake text-success me-2"></i>전문가 연결
+                    </h1>
+                    
+                    <div class="alert alert-info mb-4">
+                        <h5><i class="fas fa-info-circle me-2"></i>창업생태계 교류/협업 플랫폼</h5>
+                        <p class="mb-0">투자자, 창업자, 교수 등 창업생태계의 다양한 전문가들과 연결하여 비즈니스 성장에 필요한 인사이트와 네트워크를 확보하세요.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <strong>데모 사이트 안내:</strong> 실제 요청 제출은 로컬 환경에서만 가능합니다.
-                        </div>
-                        
-                        <form id="stakeholderForm" onsubmit="handleDemoSubmit(event)">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">이름 *</label>
-                                    <input type="text" class="form-control" id="name" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label">이메일 *</label>
-                                    <input type="email" class="form-control" id="email" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="company" class="form-label">소속 회사/기관 *</label>
-                                    <input type="text" class="form-control" id="company" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="position" class="form-label">직책/포지션 *</label>
-                                    <input type="text" class="form-control" id="position" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="expertise_area" class="form-label">관심 전문 분야 *</label>
-                                    <select class="form-select" id="expertise_area" required>
-                                        <option value="">선택해주세요</option>
-                                        <option value="기술개발">기술개발</option>
-                                        <option value="제품기획">제품기획</option>
-                                        <option value="마케팅">마케팅</option>
-                                        <option value="영업">영업</option>
-                                        <option value="인사">인사</option>
-                                        <option value="재무">재무</option>
-                                        <option value="법무">법무</option>
-                                        <option value="기타">기타</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label for="request_details" class="form-label">구체적인 요청 내용 *</label>
-                                    <textarea class="form-control" id="request_details" rows="5" 
-                                              placeholder="어떤 도움이나 조언을 받고 싶으신지 구체적으로 작성해주세요." required></textarea>
-                                </div>
-                            </div>
-                            
-                            <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="fas fa-paper-plane me-2"></i>연결 요청 보내기
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                <!-- FAQ 섹션 -->
-                <div class="mt-5">
-                    <h4 class="mb-4"><i class="fas fa-question-circle text-info me-2"></i>자주 묻는 질문</h4>
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                    연결 요청 후 얼마나 기다려야 하나요?
-                                </button>
-                            </h2>
-                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    일반적으로 3-5일 내에 적합한 전문가를 매칭해드립니다. 전문 분야와 요청 내용에 따라 시간이 달라질 수 있습니다.
+                    <!-- 탭 네비게이션 -->
+                    <ul class="nav nav-tabs mb-4" id="expertTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="company-tab" data-bs-toggle="tab" data-bs-target="#company-form" type="button" role="tab">
+                                <i class="fas fa-building me-2"></i>🏢 회사 연결 요청
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="expert-tab" data-bs-toggle="tab" data-bs-target="#expert-form" type="button" role="tab">
+                                <i class="fas fa-user-tie me-2"></i>👨‍💼 전문가 등록
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- 탭 콘텐츠 -->
+                    <div class="tab-content" id="expertTabContent">
+                        <!-- 회사 연결 요청 탭 -->
+                        <div class="tab-pane fade show active" id="company-form" role="tabpanel">
+                            <div class="card shadow">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0"><i class="fas fa-building me-2"></i>회사 연결 요청서</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-lightbulb me-2"></i>
+                                        <strong>창업생태계 전문가 연결:</strong> 투자자, 창업자, 교수 등과의 협업/교류를 통해 비즈니스 성장을 가속화하세요.
+                                    </div>
+                                    
+                                    <form id="companyForm" onsubmit="handleCompanySubmit(event)">
+                                        <!-- 1단계: 회사 기본 정보 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-primary mb-3"><i class="fas fa-info-circle me-2"></i>1단계: 회사 기본 정보</h6>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="company_name" class="form-label">회사명 *</label>
+                                                    <input type="text" class="form-control" id="company_name" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="company_industry" class="form-label">업종 *</label>
+                                                    <select class="form-select" id="company_industry" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="테크/소프트웨어">테크/소프트웨어</option>
+                                                        <option value="핀테크/블록체인">핀테크/블록체인</option>
+                                                        <option value="이커머스/리테일">이커머스/리테일</option>
+                                                        <option value="헬스케어/바이오">헬스케어/바이오</option>
+                                                        <option value="에듀테크/교육">에듀테크/교육</option>
+                                                        <option value="클린테크/에너지">클린테크/에너지</option>
+                                                        <option value="기타">기타</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="company_size" class="form-label">회사 규모 *</label>
+                                                    <select class="form-select" id="company_size" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="스타트업">스타트업</option>
+                                                        <option value="중소기업">중소기업</option>
+                                                        <option value="대기업">대기업</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="investment_round" class="form-label">투자 라운드</label>
+                                                    <select class="form-select" id="investment_round">
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="Seed">Seed</option>
+                                                        <option value="Series A">Series A</option>
+                                                        <option value="Series B">Series B</option>
+                                                        <option value="Series C">Series C</option>
+                                                        <option value="IPO">IPO</option>
+                                                        <option value="해당없음">해당없음</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 2단계: 담당자 정보 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-primary mb-3"><i class="fas fa-user me-2"></i>2단계: 담당자 정보</h6>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="contact_name" class="form-label">담당자명 *</label>
+                                                    <input type="text" class="form-control" id="contact_name" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="contact_position" class="form-label">직책 *</label>
+                                                    <input type="text" class="form-control" id="contact_position" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="contact_email" class="form-label">이메일 *</label>
+                                                    <input type="email" class="form-control" id="contact_email" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="contact_phone" class="form-label">연락처 *</label>
+                                                    <input type="tel" class="form-control" id="contact_phone" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 3단계: 연결하고 싶은 전문가 유형 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-primary mb-3"><i class="fas fa-users me-2"></i>3단계: 연결하고 싶은 전문가 유형</h6>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label class="form-label">전문가 유형 *</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expert_investor" value="투자자/VC파트너">
+                                                                <label class="form-check-label" for="expert_investor">
+                                                                    <strong>투자자/VC 파트너</strong><br>
+                                                                    <small class="text-muted">투자 유치 자문, 시장 진출 전략, 포트폴리오 기업 연결</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expert_founder" value="창업자/성공한기업가">
+                                                                <label class="form-check-label" for="expert_founder">
+                                                                    <strong>창업자/성공한 기업가</strong><br>
+                                                                    <small class="text-muted">창업 경험 공유, 비즈니스 모델 검증, 네트워크 연결</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expert_professor" value="교수/연구자">
+                                                                <label class="form-check-label" for="expert_professor">
+                                                                    <strong>교수/연구자</strong><br>
+                                                                    <small class="text-muted">기술 검증 및 R&D 자문, 학계-산업계 연결, 연구 프로젝트 협업</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expert_consultant" value="컨설턴트/어드바이저">
+                                                                <label class="form-check-label" for="expert_consultant">
+                                                                    <strong>컨설턴트/어드바이저</strong><br>
+                                                                    <small class="text-muted">전략 컨설팅, 운영 최적화, 시장 분석</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 4단계: 협업/교류 목적 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-primary mb-3"><i class="fas fa-target me-2"></i>4단계: 협업/교류 목적</h6>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label class="form-label">주요 목적 *</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_investment" value="투자유치">
+                                                                <label class="form-check-label" for="purpose_investment">투자 유치 및 자금 조달</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_validation" value="비즈니스검증">
+                                                                <label class="form-check-label" for="purpose_validation">비즈니스 모델 검증 및 개선</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_expansion" value="시장진출">
+                                                                <label class="form-check-label" for="purpose_expansion">시장 진출 및 확장 전략</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_tech" value="기술검증">
+                                                                <label class="form-check-label" for="purpose_tech">기술 검증 및 R&D 협업</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_network" value="네트워크">
+                                                                <label class="form-check-label" for="purpose_network">네트워크 확장 및 파트너십</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="purpose_optimization" value="운영최적화">
+                                                                <label class="form-check-label" for="purpose_optimization">운영 최적화 및 효율성 향상</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="collaboration_details" class="form-label">구체적인 니즈 *</label>
+                                                    <textarea class="form-control" id="collaboration_details" rows="3" 
+                                                              placeholder="어떤 도움이나 조언을 받고 싶으신지 구체적으로 작성해주세요." required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 5단계: 예상 기간 및 조건 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-primary mb-3"><i class="fas fa-calendar me-2"></i>5단계: 예상 기간 및 조건</h6>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="collaboration_duration" class="form-label">예상 기간 *</label>
+                                                    <select class="form-select" id="collaboration_duration" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="1개월">1개월</option>
+                                                        <option value="3개월">3개월</option>
+                                                        <option value="6개월">6개월</option>
+                                                        <option value="1년">1년</option>
+                                                        <option value="상시">상시</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="collaboration_type" class="form-label">협업 형태 *</label>
+                                                    <select class="form-select" id="collaboration_type" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="일회성자문">일회성 자문</option>
+                                                        <option value="정기멘토링">정기 멘토링</option>
+                                                        <option value="프로젝트협업">프로젝트 협업</option>
+                                                        <option value="이사회참여">이사회 참여</option>
+                                                        <option value="네트워킹">네트워킹</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="additional_requirements" class="form-label">추가 요구사항</label>
+                                                    <textarea class="form-control" id="additional_requirements" rows="2" 
+                                                              placeholder="기타 특별한 요구사항이 있다면 작성해주세요."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid mt-4">
+                                            <button type="submit" class="btn btn-primary btn-lg">
+                                                <i class="fas fa-paper-plane me-2"></i>연결 요청 보내기
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                    비용이 발생하나요?
-                                </button>
-                            </h2>
-                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    기본 연결 서비스는 무료입니다. 단, 전문가와의 심화 멘토링이나 장기 컨설팅은 별도 협의가 필요할 수 있습니다.
+
+                        <!-- 전문가 등록 탭 -->
+                        <div class="tab-pane fade" id="expert-form" role="tabpanel">
+                            <div class="card shadow">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>전문가 등록서</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-success">
+                                        <i class="fas fa-lightbulb me-2"></i>
+                                        <strong>창업생태계에서 새로운 기회를 발견하세요:</strong> 스타트업들과의 협업을 통해 전문성을 발휘하고 영향력을 확장하세요.
+                                    </div>
+                                    
+                                    <form id="expertForm" onsubmit="handleExpertSubmit(event)">
+                                        <!-- 1단계: 개인 기본 정보 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-success mb-3"><i class="fas fa-user me-2"></i>1단계: 개인 기본 정보</h6>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="expert_name" class="form-label">이름 *</label>
+                                                    <input type="text" class="form-control" id="expert_name" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_email" class="form-label">이메일 *</label>
+                                                    <input type="email" class="form-control" id="expert_email" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_phone" class="form-label">연락처 *</label>
+                                                    <input type="tel" class="form-control" id="expert_phone" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_linkedin" class="form-label">링크드인</label>
+                                                    <input type="url" class="form-control" id="expert_linkedin" placeholder="https://linkedin.com/in/...">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="expert_intro" class="form-label">자기소개 *</label>
+                                                    <textarea class="form-control" id="expert_intro" rows="3" 
+                                                              placeholder="본인의 전문성과 경험을 간단히 소개해주세요." required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 2단계: 전문 분야 및 경험 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-success mb-3"><i class="fas fa-star me-2"></i>2단계: 전문 분야 및 경험</h6>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label class="form-label">주요 전문 분야 *</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expertise_investment" value="투자자문">
+                                                                <label class="form-check-label" for="expertise_investment">
+                                                                    <strong>투자 자문</strong><br>
+                                                                    <small class="text-muted">투자 유치 전략, 투자자 네트워크 연결, 투자 조건 협상 지원</small>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expertise_business" value="비즈니스자문">
+                                                                <label class="form-check-label" for="expertise_business">
+                                                                    <strong>비즈니스 자문</strong><br>
+                                                                    <small class="text-muted">전략 수립 및 검증, 시장 분석 및 진입 전략, 운영 최적화</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expertise_tech" value="기술자문">
+                                                                <label class="form-check-label" for="expertise_tech">
+                                                                    <strong>기술 자문</strong><br>
+                                                                    <small class="text-muted">기술 검증 및 평가, R&D 방향성 제시, 기술 트렌드 분석</small>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="expertise_mentoring" value="멘토링">
+                                                                <label class="form-check-label" for="expertise_mentoring">
+                                                                    <strong>멘토링</strong><br>
+                                                                    <small class="text-muted">창업 경험 공유, 리더십 개발, 위기 대응 전략</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_experience" class="form-label">총 경력 연차 *</label>
+                                                    <select class="form-select" id="expert_experience" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="1-3년">1-3년</option>
+                                                        <option value="3-5년">3-5년</option>
+                                                        <option value="5-7년">5-7년</option>
+                                                        <option value="7-10년">7-10년</option>
+                                                        <option value="10년+">10년+</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_skills" class="form-label">주요 기술/역량</label>
+                                                    <input type="text" class="form-control" id="expert_skills" 
+                                                           placeholder="예: 투자유치, 전략수립, 기술검증, 창업멘토링">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="expert_career" class="form-label">주요 경력 *</label>
+                                                    <textarea class="form-control" id="expert_career" rows="3" 
+                                                              placeholder="본인의 주요 경력과 성과를 작성해주세요." required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 3단계: 제공 가능한 서비스 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-success mb-3"><i class="fas fa-handshake me-2"></i>3단계: 제공 가능한 서비스</h6>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label class="form-label">서비스 형태 *</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_consulting" value="일회성자문">
+                                                                <label class="form-check-label" for="service_consulting">일회성 자문</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_mentoring" value="정기멘토링">
+                                                                <label class="form-check-label" for="service_mentoring">정기 멘토링</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_project" value="프로젝트협업">
+                                                                <label class="form-check-label" for="service_project">프로젝트 협업</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_board" value="이사회참여">
+                                                                <label class="form-check-label" for="service_board">이사회 참여</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_networking" value="네트워킹">
+                                                                <label class="form-check-label" for="service_networking">네트워킹</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="service_other" value="기타">
+                                                                <label class="form-check-label" for="service_other">기타</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_availability" class="form-label">주당 가능 시간 *</label>
+                                                    <select class="form-select" id="expert_availability" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="5시간">5시간</option>
+                                                        <option value="10시간">10시간</option>
+                                                        <option value="20시간">20시간</option>
+                                                        <option value="30시간">30시간</option>
+                                                        <option value="40시간+">40시간+</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_collaboration_period" class="form-label">협업 가능 기간</label>
+                                                    <select class="form-select" id="expert_collaboration_period">
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="1개월">1개월</option>
+                                                        <option value="3개월">3개월</option>
+                                                        <option value="6개월">6개월</option>
+                                                        <option value="1년">1년</option>
+                                                        <option value="상시">상시</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 4단계: 협업 방식 및 조건 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-success mb-3"><i class="fas fa-cog me-2"></i>4단계: 협업 방식 및 조건</h6>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="expert_collaboration_type" class="form-label">선호 협업 방식 *</label>
+                                                    <select class="form-select" id="expert_collaboration_type" required>
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="원격">원격</option>
+                                                        <option value="현지">현지</option>
+                                                        <option value="하이브리드">하이브리드</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="expert_hourly_rate" class="form-label">희망 시간당 요금</label>
+                                                    <select class="form-select" id="expert_hourly_rate">
+                                                        <option value="">선택해주세요</option>
+                                                        <option value="5만원">5만원</option>
+                                                        <option value="10만원">10만원</option>
+                                                        <option value="15만원">15만원</option>
+                                                        <option value="20만원">20만원</option>
+                                                        <option value="20만원+">20만원+</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label">선호 업종</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-4">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_tech" value="테크/소프트웨어">
+                                                                <label class="form-check-label" for="industry_tech">테크/소프트웨어</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_fintech" value="핀테크/블록체인">
+                                                                <label class="form-check-label" for="industry_fintech">핀테크/블록체인</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_ecommerce" value="이커머스/리테일">
+                                                                <label class="form-check-label" for="industry_ecommerce">이커머스/리테일</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_healthcare" value="헬스케어/바이오">
+                                                                <label class="form-check-label" for="industry_healthcare">헬스케어/바이오</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_edutech" value="에듀테크/교육">
+                                                                <label class="form-check-label" for="industry_edutech">에듀테크/교육</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="industry_cleantech" value="클린테크/에너지">
+                                                                <label class="form-check-label" for="industry_cleantech">클린테크/에너지</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 5단계: 관심 있는 기회 -->
+                                        <div class="form-section mb-4">
+                                            <h6 class="text-success mb-3"><i class="fas fa-search me-2"></i>5단계: 관심 있는 기회</h6>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label class="form-label">관심 스타트업 단계</label>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="startup_idea" value="아이디어단계">
+                                                                <label class="form-check-label" for="startup_idea">아이디어 단계</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="startup_mvp" value="MVP개발단계">
+                                                                <label class="form-check-label" for="startup_mvp">MVP 개발 단계</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="startup_market" value="시장진입단계">
+                                                                <label class="form-check-label" for="startup_market">시장 진입 단계</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="startup_growth" value="성장/확장단계">
+                                                                <label class="form-check-label" for="startup_growth">성장/확장 단계</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="startup_exit" value="IPO/엑시트준비">
+                                                                <label class="form-check-label" for="startup_exit">IPO/엑시트 준비 단계</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="expert_additional_info" class="form-label">추가 정보</label>
+                                                    <textarea class="form-control" id="expert_additional_info" rows="2" 
+                                                              placeholder="기타 특별한 조건이나 선호사항이 있다면 작성해주세요."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid mt-4">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="fas fa-user-plus me-2"></i>전문가 등록하기
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 섹션 -->
+                    <div class="mt-5">
+                        <h4 class="mb-4"><i class="fas fa-question-circle text-info me-2"></i>자주 묻는 질문</h4>
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        전문가 연결과 채용정보의 차이점은 무엇인가요?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <strong>채용정보</strong>는 구체적인 역할(CTO, 개발팀장 등)과 Full-time 구직자를 위한 서비스입니다. 
+                                        <strong>전문가 연결</strong>은 투자자, 창업자, 교수 등 창업생태계의 다양한 전문가들과의 협업/교류를 위한 서비스입니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        연결 요청 후 얼마나 기다려야 하나요?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        일반적으로 3-5일 내에 적합한 전문가를 매칭해드립니다. 전문 분야와 요청 내용에 따라 시간이 달라질 수 있습니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        비용이 발생하나요?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        기본 연결 서비스는 무료입니다. 단, 전문가와의 심화 멘토링이나 장기 컨설팅은 별도 협의가 필요할 수 있습니다.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,16 +620,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        function handleDemoSubmit(event) {{
-            event.preventDefault();
-            alert('데모 사이트입니다. 실제 서비스는 로컬 환경에서 이용해주세요!\n\n제출하신 정보:\n- 이름: ' + 
-                  document.getElementById('name').value + '\n- 전문분야: ' + 
-                  document.getElementById('expertise_area').value);
-        }}
-    </script>
     </main>
 
     <!-- 푸터 -->
@@ -167,17 +628,43 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5><i class="fas fa-network-wired me-2"></i>CAPSA</h5>
-                    <p class="mb-0">커리어와 네트워킹의 새로운 시작</p>
+                    <p class="mb-0">창업생태계 교류/협업 플랫폼</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0">&copy; 2024 CAPSA. All rights reserved.</p>
-                    <small>GitHub Pages로 배포된 데모 사이트입니다.</small>
+                    <small>📧 hello@capsa.kr</small>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./static/js/main.js"></script>
+    <script>
+        // 탭 전환 시 폼 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            const companyTab = document.getElementById('company-tab');
+            const expertTab = document.getElementById('expert-tab');
+            
+            companyTab.addEventListener('click', function() {
+                document.getElementById('companyForm').reset();
+            });
+            
+            expertTab.addEventListener('click', function() {
+                document.getElementById('expertForm').reset();
+            });
+        });
+
+        // 회사 연결 요청 처리
+        function handleCompanySubmit(event) {
+            event.preventDefault();
+            alert('회사 연결 요청이 성공적으로 제출되었습니다!\n\nCAPSA 팀에서 검토 후 적합한 전문가를 매칭해드리겠습니다.\n\n문의사항: hello@capsa.kr');
+        }
+
+        // 전문가 등록 처리
+        function handleExpertSubmit(event) {
+            event.preventDefault();
+            alert('전문가 등록이 완료되었습니다!\n\n등록해주신 정보를 바탕으로 적합한 기회를 찾아 연락드리겠습니다.\n\n문의사항: hello@capsa.kr');
+        }
+    </script>
 </body>
 </html>
