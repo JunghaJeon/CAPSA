@@ -97,7 +97,8 @@
                 <div class="row g-4" id="jobsList">
                     
                     <div class="col-md-6 job-item" data-location="San Francisco, CA" data-type="Full-time" data-mode="Remote">
-                        <div class="job-card border rounded-3 p-4 shadow-sm h-100">
+                        <a href="jobs/senior-backend-engineer.html" class="text-decoration-none text-dark">
+                        <div class="job-card border rounded-3 p-4 shadow-sm h-100 job-card-link">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Senior Backend Engineer</h5>
                                 <span class="badge bg-success">Full-time</span>
@@ -119,15 +120,17 @@
                                 <small class="text-muted">
                                     <i class="fas fa-calendar me-1"></i>2024-08-31
                                 </small>
-                                <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="event.stopPropagation(); alert('데모 사이트입니다.')">
                                     <i class="fas fa-share me-1"></i>공유
                                 </button>
                             </div>
                         </div>
+                        </a>
                     </div>
                     
                     <div class="col-md-6 job-item" data-location="Seattle, WA" data-type="Contract" data-mode="Hybrid">
-                        <div class="job-card border rounded-3 p-4 shadow-sm h-100">
+                        <a href="jobs/frontend-engineer.html" class="text-decoration-none text-dark">
+                        <div class="job-card border rounded-3 p-4 shadow-sm h-100 job-card-link">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Frontend Engineer</h5>
                                 <span class="badge bg-info">Contract</span>
@@ -149,15 +152,17 @@
                                 <small class="text-muted">
                                     <i class="fas fa-calendar me-1"></i>2024-08-30
                                 </small>
-                                <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="event.stopPropagation(); alert('데모 사이트입니다.')">
                                     <i class="fas fa-share me-1"></i>공유
                                 </button>
                             </div>
                         </div>
+                        </a>
                     </div>
                     
                     <div class="col-md-6 job-item" data-location="Austin, TX" data-type="Full-time" data-mode="Remote">
-                        <div class="job-card border rounded-3 p-4 shadow-sm h-100">
+                        <a href="jobs/data-scientist.html" class="text-decoration-none text-dark">
+                        <div class="job-card border rounded-3 p-4 shadow-sm h-100 job-card-link">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Data Scientist</h5>
                                 <span class="badge bg-success">Full-time</span>
@@ -179,11 +184,12 @@
                                 <small class="text-muted">
                                     <i class="fas fa-calendar me-1"></i>2024-08-29
                                 </small>
-                                <button class="btn btn-outline-secondary btn-sm" onclick="alert('데모 사이트입니다.')">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="event.stopPropagation(); alert('데모 사이트입니다.')">
                                     <i class="fas fa-share me-1"></i>공유
                                 </button>
                             </div>
                         </div>
+                        </a>
                     </div>
                     
                 </div>
@@ -192,6 +198,64 @@
     </div>
 
     <script>
+        // URL 파라미터에서 필터 상태 복원
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                q: urlParams.get('q') || '',
+                loc: urlParams.get('loc') || '',
+                mode: urlParams.get('mode') || '',
+                type: urlParams.get('type') || ''
+            };
+        }
+
+        // 필터 상태를 URL에 저장
+        function updateUrlParams(params) {
+            const url = new URL(window.location);
+            Object.keys(params).forEach(key => {
+                if (params[key]) {
+                    url.searchParams.set(key, params[key]);
+                } else {
+                    url.searchParams.delete(key);
+                }
+            });
+            window.history.replaceState({}, '', url);
+        }
+
+        // 페이지 로드 시 필터 상태 복원
+        function restoreFilters() {
+            const params = getUrlParams();
+            
+            if (params.q) document.getElementById('searchInput').value = params.q;
+            if (params.loc) document.getElementById('locationInput').value = params.loc;
+            if (params.mode) document.getElementById('workModeFilter').value = params.mode;
+            if (params.type) document.getElementById('typeFilter').value = params.type;
+            
+            // 필터가 있으면 자동으로 적용
+            if (params.q || params.loc || params.mode || params.type) {
+                filterJobs();
+            }
+        }
+
+        // 상세 페이지 링크에 필터 상태 추가
+        function addFilterParamsToLinks() {
+            const params = getUrlParams();
+            const queryString = new URLSearchParams();
+            
+            if (params.q) queryString.set('q', params.q);
+            if (params.loc) queryString.set('loc', params.loc);
+            if (params.mode) queryString.set('mode', params.mode);
+            if (params.type) queryString.set('type', params.type);
+            
+            const queryStr = queryString.toString();
+            
+            // 모든 job 카드 링크에 파라미터 추가
+            document.querySelectorAll('.job-item a').forEach(link => {
+                const baseHref = link.getAttribute('href').split('?')[0];
+                link.href = queryStr ? `${baseHref}?${queryStr}` : baseHref;
+            });
+        }
+
         function filterJobs() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const locationTerm = (document.getElementById('locationInput')?.value || '').toLowerCase();
@@ -199,6 +263,17 @@
             const remoteOnly = false; // removed standalone checkbox; rely on Work Mode
             const typeFilter = document.getElementById('typeFilter').value;
             const jobItems = document.querySelectorAll('.job-item');
+
+            // URL 파라미터 업데이트
+            updateUrlParams({
+                q: searchTerm,
+                loc: locationTerm,
+                mode: workMode,
+                type: typeFilter
+            });
+
+            // 링크에 필터 상태 추가
+            addFilterParamsToLinks();
 
             jobItems.forEach(item => {
                 const title = item.querySelector('h5').textContent.toLowerCase();
@@ -220,6 +295,12 @@
                 }
             });
         }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            restoreFilters();
+            addFilterParamsToLinks();
+        });
     </script>
     </main>
 
