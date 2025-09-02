@@ -54,30 +54,39 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="row g-3">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="제목, 회사명 검색..." id="searchInput">
-                            </div>
                             <div class="col-md-3">
-                                <select class="form-select" id="locationFilter">
-                                    <option value="">All Locations</option>
-                                    <option value="San Francisco">San Francisco, CA</option>
-                                    <option value="Seattle">Seattle, WA</option>
-                                    <option value="Austin">Austin, TX</option>
-                                    <option value="New York">New York, NY</option>
-                                    <option value="Remote">Remote</option>
-                                </select>
+                                <label class="form-label mb-1">Keyword</label>
+                                <input type="text" class="form-control" placeholder="Title, company..." id="searchInput">
                             </div>
-                            <div class="col-md-3">
-                                <select class="form-select" id="typeFilter">
-                                    <option value="">All Types</option>
-                                    <option value="Full-time">Full-time</option>
-                                    <option value="Contract">Contract</option>
+                            <div class="col-md-5">
+                                <label class="form-label mb-1">Location</label>
+                                <input type="text" class="form-control" id="locationInput" placeholder="e.g.: San Francisco, CA, US or Germany">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mb-1">Work Mode</label>
+                                <select class="form-select" id="workModeFilter">
+                                    <option value="">All Modes</option>
+                                    <option value="Onsite">Onsite</option>
+                                    <option value="Hybrid">Hybrid</option>
                                     <option value="Remote">Remote</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
+                                <label class="form-label mb-1">Job Type</label>
+                                <select class="form-select" id="typeFilter">
+                                    <option value="">All Types</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Freelance">Freelance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-2 ms-auto">
                                 <button class="btn btn-primary w-100" onclick="filterJobs()">
-                                    <i class="fas fa-search"></i> 검색
+                                    <i class="fas fa-search"></i> Apply Filters
                                 </button>
                             </div>
                         </div>
@@ -87,7 +96,7 @@
                 <!-- 채용정보 목록 -->
                 <div class="row g-4" id="jobsList">
                     
-                    <div class="col-md-6 job-item" data-location="San Francisco, CA" data-type="Full-time">
+                    <div class="col-md-6 job-item" data-location="San Francisco, CA" data-type="Full-time" data-mode="Remote">
                         <div class="job-card border rounded-3 p-4 shadow-sm h-100">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Senior Backend Engineer</h5>
@@ -122,7 +131,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-6 job-item" data-location="Seattle, WA" data-type="Contract">
+                    <div class="col-md-6 job-item" data-location="Seattle, WA" data-type="Contract" data-mode="Hybrid">
                         <div class="job-card border rounded-3 p-4 shadow-sm h-100">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Frontend Engineer</h5>
@@ -157,7 +166,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-6 job-item" data-location="Austin, TX" data-type="Full-time">
+                    <div class="col-md-6 job-item" data-location="Austin, TX" data-type="Full-time" data-mode="Remote">
                         <div class="job-card border rounded-3 p-4 shadow-sm h-100">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <h5 class="mb-0">Data Scientist</h5>
@@ -200,21 +209,26 @@
     <script>
         function filterJobs() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const locationFilter = document.getElementById('locationFilter').value;
+            const locationTerm = (document.getElementById('locationInput')?.value || '').toLowerCase();
+            const workMode = document.getElementById('workModeFilter')?.value || '';
+            const remoteOnly = false; // removed standalone checkbox; rely on Work Mode
             const typeFilter = document.getElementById('typeFilter').value;
             const jobItems = document.querySelectorAll('.job-item');
-            
+
             jobItems.forEach(item => {
                 const title = item.querySelector('h5').textContent.toLowerCase();
                 const company = item.querySelector('.fa-building').parentNode.textContent.toLowerCase();
-                const location = item.dataset.location;
-                const type = item.dataset.type;
-                
+                const location = (item.dataset.location || '').toLowerCase();
+                const type = item.dataset.type || '';
+                const mode = item.dataset.mode || '';
+
                 const matchesSearch = title.includes(searchTerm) || company.includes(searchTerm);
-                const matchesLocation = !locationFilter || location.includes(locationFilter);
+                const matchesLocation = !locationTerm || location.includes(locationTerm);
                 const matchesType = !typeFilter || type === typeFilter;
-                
-                if (matchesSearch && matchesLocation && matchesType) {
+                const matchesMode = !workMode || mode === workMode;
+                const matchesRemote = !remoteOnly || mode === 'Remote';
+
+                if (matchesSearch && matchesLocation && matchesType && matchesMode && matchesRemote) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
