@@ -124,6 +124,16 @@ body {
     font-style: italic;
 }
 
+.deadline-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+}
+
 .job-section {
     margin-bottom: 2.5rem;
 }
